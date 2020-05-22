@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
 
 \title{
   \vspace{-2cm}
@@ -9,4 +10,7 @@
 
 \begin{document}
 \maketitle
+\begin{enumerate}[label=(\alph*)]
+\item $-\sum_{w\in Vocab}y_w\log(\hat{y}_w)=\sum_{w=o}\log(\hat{y}_w)=\log(\hat{y}_o)$.
+\end{enumerate}
 \end{document}
