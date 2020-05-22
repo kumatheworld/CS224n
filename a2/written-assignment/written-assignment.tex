@@ -1,6 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{bm}
 
 \title{
   \vspace{-2cm}
@@ -12,5 +14,13 @@
 \maketitle
 \begin{enumerate}[label=(\alph*)]
 \item $-\sum_{w\in Vocab}y_w\log(\hat{y}_w)=\sum_{w=o}\log(\hat{y}_w)=\log(\hat{y}_o)$.
+\item \begin{align*}
+\frac{\partial}{\partial\bm{v}_c}\bm{J}_{\textrm{naive-softmax}}(\bm{v}_c,o,\bm{U}) &=\frac{\partial}{\partial\bm{v}_c}\left(-\log\left(\frac{\exp(\bm{u}_o^\top\bm{v}_c)}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}\right)\right) \\
+&=\frac{\partial}{\partial\bm{v}_c}\left(\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\log\left(\exp(\bm{u}_o^\top\bm{v}_c)\right)\right) \\
+&=\frac{\partial}{\partial\bm{v}_c}\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\frac{\partial}{\partial\bm{v}_c}\log\left(\exp(\bm{u}_o^\top\bm{v}_c)\right) \\
+&=\frac{\partial}{\partial\bm{v}_c}\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\frac{\partial}{\partial\bm{v}_c}\bm{u}_o^\top\bm{v}_c \\
+&=\frac{\sum_{x\in Vocab}\exp(\bm{u}_x^\top\bm{v}_c)\bm{u}_x}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}-\bm{u}_o \\
+&=\sum_{x\in Vocab}\frac{\exp(\bm{u}_x^\top\bm{v}_c)}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}\bm{u}_x-\bm{u}_o.
+\end{align*}
 \end{enumerate}
 \end{document}
