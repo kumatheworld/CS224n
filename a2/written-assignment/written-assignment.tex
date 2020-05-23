@@ -13,7 +13,7 @@
 \begin{document}
 \maketitle
 \begin{enumerate}[label=(\alph*)]
-\item $-\sum_{w\in Vocab}y_w\log(\hat{y}_w)=\sum_{w=o}\log(\hat{y}_w)=\log(\hat{y}_o)$.
+\item \[-\sum_{w\in Vocab}y_w\log(\hat{y}_w)=\sum_{w=o}\log(\hat{y}_w)=\log(\hat{y}_o).\]
 \item \begin{align*}
 \frac{\partial}{\partial\bm{v}_c}\bm{J}_{\textrm{naive-softmax}}(\bm{v}_c,o,\bm{U}) &=\frac{\partial}{\partial\bm{v}_c}\left(-\log\left(\frac{\exp(\bm{u}_o^\top\bm{v}_c)}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}\right)\right) \\
 &=\frac{\partial}{\partial\bm{v}_c}\left(\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\log\left(\exp(\bm{u}_o^\top\bm{v}_c)\right)\right) \\
@@ -29,5 +29,6 @@
 &=\bm{\hat{y}}_w\bm{v}_c-\bm{y}_w\bm{v}_c \\
 &=\bm{v}_c(\bm{\hat{y}}_w-\bm{y}_w).
 \end{align*}
+\item \[\frac{d}{d\bm{x}}\sigma(\bm{x})=\frac{d}{d\bm{x}}\frac{1}{1+e^{-\bm{x}}}=\frac{e^{-\bm{x}}}{(1+e^{-\bm{x}})^2}.\]
 \end{enumerate}
 \end{document}
