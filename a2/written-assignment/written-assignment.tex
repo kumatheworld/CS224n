@@ -20,7 +20,10 @@
 &=\frac{\partial}{\partial\bm{v}_c}\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\frac{\partial}{\partial\bm{v}_c}\log\left(\exp(\bm{u}_o^\top\bm{v}_c)\right) \\
 &=\frac{\partial}{\partial\bm{v}_c}\log\left(\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)\right)-\frac{\partial}{\partial\bm{v}_c}\bm{u}_o^\top\bm{v}_c \\
 &=\frac{\sum_{x\in Vocab}\exp(\bm{u}_x^\top\bm{v}_c)\bm{u}_x}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}-\bm{u}_o \\
-&=\sum_{x\in Vocab}\frac{\exp(\bm{u}_x^\top\bm{v}_c)}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}\bm{u}_x-\bm{u}_o.
+&=\sum_{x\in Vocab}\frac{\exp(\bm{u}_x^\top\bm{v}_c)}{\sum_{w\in Vocab}\exp(\bm{u}_w^\top\bm{v}_c)}\bm{u}_x-\bm{u}_o \\
+&=\sum_{x\in Vocab}\bm{\hat{y}}_x\bm{u}_x-\sum_{x\in Vocab}\bm{y}_x\bm{u}_x \\
+&=\sum_{x\in Vocab}\bm{u}_x(\bm{\hat{y}}_x-\bm{y}_x) \\
+&=\bm{U}(\bm{\hat{y}}-\bm{y}).
 \end{align*}
 \end{enumerate}
 \end{document}
