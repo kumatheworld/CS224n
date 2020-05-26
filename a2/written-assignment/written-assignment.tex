@@ -37,5 +37,10 @@
 \frac{\partial}{\partial\bm{u}_k}\bm{J}_{\textrm{neg-sample}}(\bm{v}_c,o,\bm{U}) &=\sum_{k=1}^K\frac{\partial}{\partial\bm{u}_k}\log(1+e^{-\bm{u}_k^\top\bm{v}_c})=-\sum_{k=1}^K\frac{1}{1+e^{\bm{u}_k^\top\bm{v}_c}}\bm{v}_c.
 \end{align*}
 These are computationally less expensive than the naive-softmax loss because its summation ranges over only $K$ numbers, which is usually much smaller than $|Vocab|$.
+\item \begin{enumerate}[label=(\roman*)]
+  \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{U}=\sum\limits_{\substack{-m\leq j\leq m\\j\neq 0}}\partial\bm{J}(\bm{v}_c,w_{t+j},\bm{U})/\partial\bm{U}.$
+  \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{v}_c=\sum\limits_{\substack{-m\leq j\leq m\\j\neq 0}}\partial\bm{J}(\bm{v}_c,w_{t+j},\bm{U})/\partial\bm{v}_c.$
+  \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{v}_w=0.$
+\end{enumerate}
 \end{enumerate}
 \end{document}
