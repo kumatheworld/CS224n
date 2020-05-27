@@ -18,6 +18,8 @@ def sigmoid(x):
 
     ### YOUR CODE HERE
 
+    s = 1 / (1 + np.exp(x))
+
     ### END YOUR CODE
 
     return s
@@ -58,6 +60,14 @@ def naiveSoftmaxLossAndGradient(
     ### This numerically stable implementation helps you avoid issues pertaining
     ### to integer overflow. 
 
+    loss = softmax(outsideVectors.T.dot(centerWordVec))[oursideWordIdx]
+
+    label = np.zeros_like(loss)
+    label[outsideWordIdx] = 1
+
+    gradCenterVec = oursideVectors.dot(loss - label)
+
+    gradOutsideVecs = centerWordVec.dot(loss - label)
 
     ### END YOUR CODE
 
@@ -106,6 +116,14 @@ def negSamplingLossAndGradient(
 
     ### Please use your implementation of sigmoid in here.
 
+    uo = outsideVectors[oursideWordIdx]
+    uk = outsideVectors[negSampleWordIndices]
+    suovc = sigmoid(uo.dot(centerWordVec))
+    sukvc = sigmoid(uk.T.dot(centerWordVec))
+
+    loss = -np.log(sigmoid(suovc)) - np.sum(np.log(sigmoid(1-sukvc)))
+
+    gradCenterVec = (1-suovc)*uo + 
 
     ### END YOUR CODE
 
