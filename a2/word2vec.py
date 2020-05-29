@@ -60,14 +60,14 @@ def naiveSoftmaxLossAndGradient(
     ### This numerically stable implementation helps you avoid issues pertaining
     ### to integer overflow. 
 
-    prediction = softmax(outsideVectors.dot(centerWordVec))
+    prediction = softmax(outsideVectors @ centerWordVec)
     loss = -np.log(prediction[outsideWordIdx])
 
     label = np.zeros_like(prediction)
     label[outsideWordIdx] = 1
     diff = prediction - label
 
-    gradCenterVec = outsideVectors.T.dot(diff)
+    gradCenterVec = outsideVectors.T @ diff
     gradOutsideVecs = np.outer(diff, centerWordVec)
 
     ### END YOUR CODE
@@ -120,15 +120,14 @@ def negSamplingLossAndGradient(
     vc = centerWordVec
     uo = outsideVectors[outsideWordIdx]
     uk = outsideVectors[negSampleWordIndices]
-    suovc = sigmoid(uo.dot(vc))
-    sukvc = sigmoid(uk.dot(vc))
+    suovc = sigmoid(uo @ vc)
+    sukvc = sigmoid(uk @ vc)
 
     loss = -np.log(suovc) - np.sum(np.log(1-sukvc))
-    gradCenterVec = -(1-suovc)*uo + uk.T.dot(sukvc)
+    gradCenterVec = -(1-suovc)*uo + uk.T @ sukvc
     gradOutsideVecs = np.zeros_like(outsideVectors)
     gradOutsideVecs[outsideWordIdx] = -(1-suovc)*vc
-    for k in negSampleWordIndices:
-        gradOutsideVecs[k] += sukvc[k] * vc
+    np.add.at(gradOutsideVecs, negSampleWordIndices, np.outer(sukvc, vc))
 
     ### END YOUR CODE
 
