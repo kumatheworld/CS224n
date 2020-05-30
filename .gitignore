@@ -392,3 +392,8 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/latex,python,jupyternotebooks
+
+# Some more specific files
+*.npy
+*.pickle
+a2/utils/datasets
