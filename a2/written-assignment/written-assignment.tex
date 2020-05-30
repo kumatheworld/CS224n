@@ -1,17 +1,20 @@
-\documentclass[12pt]{article}
+\documentclass[12pt, dvipdfmx]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{bm}
+\usepackage{graphicx}
 
 \title{
   \vspace{-2cm}
-  CS 224n Assignment \#2: Written Assignment \\
+  CS 224n Assignment \#2 \\
   \author{Yoshihiro Kumazawa}
 }
 
 \begin{document}
 \maketitle
+\begin{enumerate}[label=\textbf{\arabic*}]
+\item \textbf{Written}
 \begin{enumerate}[label=(\alph*)]
 \item \[-\sum_{w\in Vocab}y_w\log(\hat{y}_w)=\sum_{w=o}\log(\hat{y}_w)=\log(\hat{y}_o).\]
 \item \begin{align*}
@@ -42,6 +45,19 @@ These are computationally less expensive than the naive-softmax loss because its
   \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{U}=\sum\limits_{\substack{-m\leq j\leq m\\j\neq 0}}\partial\bm{J}(\bm{v}_c,w_{t+j},\bm{U})/\partial\bm{U}.$
   \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{v}_c=\sum\limits_{\substack{-m\leq j\leq m\\j\neq 0}}\partial\bm{J}(\bm{v}_c,w_{t+j},\bm{U})/\partial\bm{v}_c.$
   \item $\partial\bm{J}_{\textrm{skip-gram}}(\bm{v}_c,w_{t-m},\ldots,w_{t+m},\bm{U})/\partial\bm{v}_w=0.$
+\end{enumerate}
+\end{enumerate}
+\item \textbf{Coding}
+\begin{enumerate}[label=(\alph*)]
+\item See \texttt{word2vec.py}.
+\item See \texttt{sgd.py}.
+\item \begin{figure}
+  \centering
+  \includegraphics{../word_vectors.png}
+  \caption{Visualized word vectors}
+  \label{fig:word_vectors}
+\end{figure}
+Figure~\ref{fig:word_vectors} shows the visualized word vectors. Some similar words like 'woman' and 'female' are put close but other similar words like 'man' and 'male' are far apart. Thus our word embedding does not retain the parallelogram property that well-trained word embedding methods are expected to have.
 \end{enumerate}
 \end{enumerate}
 \end{document}
