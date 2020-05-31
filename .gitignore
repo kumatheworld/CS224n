@@ -396,4 +396,5 @@ dmypy.json
 # Some more specific files
 *.npy
 *.pickle
-a2/utils/datasets
+a2/utils/datasets/
+a3/data/
