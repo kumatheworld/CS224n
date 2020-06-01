@@ -17,7 +17,7 @@
 \item
 \begin{enumerate}[label=\roman*.]
 \item When $\beta_1$ is large, $\bm{m}$ relies more on the history of the past gradients rather than the new one. For example, if $\beta_1=0.9$, the contribution of the new gradient to weight update is only 10\% of that without momentum.
-\item
+\item The model parameters with smaller gradients will get larger updates. When the variance of the gradients is high, Adam might help the parameters go in the direction of small gradients, which the vanilla update strategy would ignore due to rounding errors.
 \end{enumerate}
 \item
 \begin{enumerate}[label=\roman*.]
