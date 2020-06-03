@@ -3,6 +3,7 @@
 \usepackage{enumitem}
 \usepackage{bm}
 \usepackage{amsfonts}
+\usepackage{adjustbox}
 
 \title{
   \vspace{-2cm}
@@ -28,7 +29,29 @@
 \end{enumerate}
 \item \textbf{Neural Transition-Based Dependency Parsing}
 \begin{enumerate}[label=(\alph*)]
-\item
+\item See Table~\ref{tab:depparse}.
+\begin{table}[h]
+  \centering
+  \caption{Dependency parsing steps} \hfill
+  \label{tab:depparse}
+  \begin{adjustbox}{width=\textwidth}
+  \begin{tabular}{l|l|l|l}
+  Stack & Buffer & New dependency & Transition \\
+  \hline
+  [ROOT] & [I, parsed, this, sentence, correctly] &  & Initial Configuration \\
+  {[ROOT, I]} & [parsed, this, sentence, correctly] &  & \texttt{SHIFT} \\
+  {[ROOT, I, parsed]} & [this, sentence, correctly] &  & \texttt{SHIFT} \\
+  {[ROOT, parsed]} & [this, sentence, correctly] & parsed $\rightarrow$ I & \texttt{LEFT-ARC} \\
+  {[ROOT, parsed, this]} & [sentence, correctly] & & \texttt{SHIFT} \\
+  {[ROOT, parsed, this, sentence]} & [correctly] & & \texttt{SHIFT} \\
+  {[ROOT, parsed, sentence]} & [correctly] & sentence $\rightarrow$ this & \texttt{LEFT-ARC} \\
+  {[ROOT, parsed]} & [correctly] & parsed $\rightarrow$ sentence & \texttt{RIGHT-ARC} \\
+  {[ROOT, parsed, correctly]} & [] & & \texttt{SHIFT} \\
+  {[ROOT, parsed]} & [] & parsed $\rightarrow$ correctly & \texttt{RIGHT-ARC} \\
+  {[ROOT]} & [] & ROOT $\rightarrow$ parsed & \texttt{RIGHT-ARC} \\
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
 \item
 \item
 \item
