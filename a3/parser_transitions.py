@@ -81,6 +81,10 @@ class PartialParse(object):
             self.parse_step(transition)
         return self.dependencies
 
+    ### My own additional code for part (d)
+    def parse_done(self):
+        return len(self.stack) == 1 and not self.buffer
+
 
 def minibatch_parse(sentences, model, batch_size):
     """Parses a list of sentences in minibatches using a model.
@@ -116,7 +120,20 @@ def minibatch_parse(sentences, model, batch_size):
     ###             to remove objects from the `unfinished_parses` list. This will free the underlying memory that
     ###             is being accessed by `partial_parses` and may cause your code to crash.
 
+    partial_parses = [PartialParse(sentence) for sentence in sentences]
+    unfinished_parses = partial_parses[:]
 
+    while unfinished_parses:
+        batched_pp = unfinished_parses[:batch_size]
+        transitions = model.predict(batched_pp)
+        for partial_parse, transition in zip(batched_pp, transitions):
+            partial_parse.parse_step(transition)
+        unfinished_parses = [
+            partial_parse for partial_parse in batched_pp
+            if not partial_parse.parse_done()
+        ] + unfinished_parses[batch_size:]
+
+    dependencies = [partial_parse.dependencies for partial_parse in partial_parses]
     ### END YOUR CODE
 
     return dependencies
