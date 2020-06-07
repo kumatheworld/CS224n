@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CS224N 2018-19: Homework 3
+CS224N 2019-20: Homework 3
 run.py: Run the dependency parser.
 Sahil Chopra <schopra8@stanford.edu>
+Haoshen Hong <haoshen@stanford.edu>
 """
 from datetime import datetime
 import os
 import pickle
 import math
 import time
+import argparse
 
 from torch import nn, optim
 import torch
@@ -17,6 +19,10 @@ from tqdm import tqdm
 
 from parser_model import ParserModel
 from utils.parser_utils import minibatches, load_and_preprocess_data, AverageMeter
+
+parser = argparse.ArgumentParser(description='Train neural dependency parser in pytorch')
+parser.add_argument('-d', '--debug', action='store_true', help='whether to enter debug mode')
+args = parser.parse_args()
 
 # -----------------
 # Primary Functions
@@ -38,7 +44,8 @@ def train(parser, train_data, dev_data, output_path, batch_size=1024, n_epochs=1
     ### YOUR CODE HERE (~2-7 lines)
     ### TODO:
     ###      1) Construct Adam Optimizer in variable `optimizer`
-    ###      2) Construct the Cross Entropy Loss Function in variable `loss_func`
+    ###      2) Construct the Cross Entropy Loss Function in variable `loss_func` with `mean`
+    ###         reduction (default)
     ###
     ### Hint: Use `parser.model.parameters()` to pass optimizer
     ###       necessary parameters to tune.
@@ -46,6 +53,8 @@ def train(parser, train_data, dev_data, output_path, batch_size=1024, n_epochs=1
     ###     Adam Optimizer: https://pytorch.org/docs/stable/optim.html
     ###     Cross Entropy Loss: https://pytorch.org/docs/stable/nn.html#crossentropyloss
 
+    optimizer = optim.Adam(parser.model.parameters(), lr=lr)
+    loss_func = torch.nn.CrossEntropyLoss()
 
     ### END YOUR CODE
 
@@ -72,7 +81,6 @@ def train_for_epoch(parser, train_data, dev_data, optimizer, loss_func, batch_si
     @param optimizer (nn.Optimizer): Adam Optimizer
     @param loss_func (nn.CrossEntropyLoss): Cross Entropy Loss Function
     @param batch_size (int): batch size
-    @param lr (float): learning rate
 
     @return dev_UAS (float): Unlabeled Attachment Score (UAS) for dev data
     """
@@ -99,6 +107,10 @@ def train_for_epoch(parser, train_data, dev_data, optimizer, loss_func, batch_si
             ### Please see the following docs for support:
             ###     Optimizer Step: https://pytorch.org/docs/stable/optim.html#optimizer-step
 
+            logits = parser.model.forward(train_x)
+            loss = loss_func(logits, train_y)
+            loss.backward()
+            optimizer.step()
 
             ### END YOUR CODE
             prog.update(1)
@@ -114,11 +126,9 @@ def train_for_epoch(parser, train_data, dev_data, optimizer, loss_func, batch_si
 
 
 if __name__ == "__main__":
-    # Note: Set debug to False, when training on entire corpus
-    debug = True
-    # debug = False
+    debug = args.debug
 
-    assert(torch.__version__ == "1.0.0"),  "Please install torch version 1.0.0"
+    assert (torch.__version__.split(".") >= ["1", "0", "0"]), "Please install torch version >= 1.0.0"
 
     print(80 * "=")
     print("INITIALIZING")
