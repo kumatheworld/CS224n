@@ -398,3 +398,4 @@ dmypy.json
 *.pickle
 a2/utils/datasets/
 a3/data/
+a3/results/
