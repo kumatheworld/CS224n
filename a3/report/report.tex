@@ -29,11 +29,11 @@
 \end{enumerate}
 \item \textbf{Neural Transition-Based Dependency Parsing}
 \begin{enumerate}[label=(\alph*)]
-\item See Table~\ref{tab:depparse}.
+\item See Table~\ref{tab:2a}.
 \begin{table}[h]
   \centering
   \caption{Dependency parsing steps} \hfill
-  \label{tab:depparse}
+  \label{tab:2a}
   \begin{adjustbox}{width=\textwidth}
   \begin{tabular}{l|l|l|l}
   Stack & Buffer & New dependency & Transition \\
@@ -56,7 +56,22 @@
 \item See \texttt{parser\_transitions.py}.
 \item See \texttt{parser\_transitions.py}.
 \item See \texttt{parser\_model.py} and \texttt{run.py}.
-\item
+\item See Table~\ref{tab:2f}.
+\begin{table}[ht]
+  \centering
+  \caption{Dependency error corrections} \hfill
+  \label{tab:2f}
+  \begin{adjustbox}{width=\textwidth}
+  \begin{tabular}{l|l|l|l}
+  & Error type & Incorrect dependency & Correct dependency \\
+  \hline
+  i. & Verb Phrase Attachment Error & wedding $\rightarrow$ fearing & disembarked $\rightarrow$ fearing \\
+  ii. & Coordination Attachment Error & makes $\rightarrow$ rescue & rush $\rightarrow$ rescue \\
+  iii. & Prepositional Phrase Attachment Error & named $\rightarrow$ Midland & guy $\rightarrow$ Midland  \\
+  iv. & Modifier Attachment Error & elements $\rightarrow$ most & crucial $\rightarrow$ most
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
 \end{enumerate}
 \end{enumerate}
 \end{document}
