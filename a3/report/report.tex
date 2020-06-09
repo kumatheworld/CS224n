@@ -1,4 +1,4 @@
-\documentclass[12pt, dvipdfmx]{article}
+\documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{enumitem}
 \usepackage{bm}
@@ -14,64 +14,64 @@
 \begin{document}
 \maketitle
 \begin{enumerate}[label=\textbf{\arabic*.}]
-\item \textbf{Machine Learning \& Neural Networks}
-\begin{enumerate}[label=(\alph*)]
-\item
-\begin{enumerate}[label=\roman*.]
-\item When $\beta_1$ is large, $\bm{m}$ relies more on the history of the past gradients rather than the new one. For example, if $\beta_1=0.9$, the contribution of the new gradient to weight update is only 10\% of that without momentum.
-\item The model parameters with smaller gradients will get larger updates. When the variance of the gradients is high, Adam might help the parameters go in the direction of small gradients, which the vanilla update strategy would ignore due to rounding errors.
-\end{enumerate}
-\item
-\begin{enumerate}[label=\roman*.]
-\item $\gamma$ must equal $1/(1-p_\mathrm{drop})$ to make $\mathbb{E}_{p_\mathrm{drop}}[\bm{h}_\mathrm{drop}]_i=h_i$.
-\item Dropout during evaluation time would make the network stochastic, which is usually not desirable.
-\end{enumerate}
-\end{enumerate}
-\item \textbf{Neural Transition-Based Dependency Parsing}
-\begin{enumerate}[label=(\alph*)]
-\item See Table~\ref{tab:2a}.
-\begin{table}[h]
-  \centering
-  \caption{Dependency parsing steps} \hfill
-  \label{tab:2a}
-  \begin{adjustbox}{width=\textwidth}
-  \begin{tabular}{l|l|l|l}
-  Stack & Buffer & New dependency & Transition \\
-  \hline
-  [ROOT] & [I, parsed, this, sentence, correctly] &  & Initial Configuration \\
-  {[ROOT, I]} & [parsed, this, sentence, correctly] &  & \texttt{SHIFT} \\
-  {[ROOT, I, parsed]} & [this, sentence, correctly] &  & \texttt{SHIFT} \\
-  {[ROOT, parsed]} & [this, sentence, correctly] & parsed $\rightarrow$ I & \texttt{LEFT-ARC} \\
-  {[ROOT, parsed, this]} & [sentence, correctly] & & \texttt{SHIFT} \\
-  {[ROOT, parsed, this, sentence]} & [correctly] & & \texttt{SHIFT} \\
-  {[ROOT, parsed, sentence]} & [correctly] & sentence $\rightarrow$ this & \texttt{LEFT-ARC} \\
-  {[ROOT, parsed]} & [correctly] & parsed $\rightarrow$ sentence & \texttt{RIGHT-ARC} \\
-  {[ROOT, parsed, correctly]} & [] & & \texttt{SHIFT} \\
-  {[ROOT, parsed]} & [] & parsed $\rightarrow$ correctly & \texttt{RIGHT-ARC} \\
-  {[ROOT]} & [] & ROOT $\rightarrow$ parsed & \texttt{RIGHT-ARC} \\
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
-\item A sentence containing $n$ words will be parsed in $2n$ steps since every word is processed in 1 \texttt{SHIFT} operation and 1 \texttt{LEFT-ARC} or \texttt{RIGHT-ARC} operation.
-\item See \texttt{parser\_transitions.py}.
-\item See \texttt{parser\_transitions.py}.
-\item See \texttt{parser\_model.py} and \texttt{run.py}.
-\item See Table~\ref{tab:2f}.
-\begin{table}[ht]
-  \centering
-  \caption{Dependency error corrections} \hfill
-  \label{tab:2f}
-  \begin{adjustbox}{width=\textwidth}
-  \begin{tabular}{l|l|l|l}
-  & Error type & Incorrect dependency & Correct dependency \\
-  \hline
-  i. & Verb Phrase Attachment Error & wedding $\rightarrow$ fearing & disembarked $\rightarrow$ fearing \\
-  ii. & Coordination Attachment Error & makes $\rightarrow$ rescue & rush $\rightarrow$ rescue \\
-  iii. & Prepositional Phrase Attachment Error & named $\rightarrow$ Midland & guy $\rightarrow$ Midland  \\
-  iv. & Modifier Attachment Error & elements $\rightarrow$ most & crucial $\rightarrow$ most
-  \end{tabular}
-  \end{adjustbox}
-\end{table}
-\end{enumerate}
+  \item \textbf{Machine Learning \& Neural Networks}
+  \begin{enumerate}[label=(\alph*)]
+    \item
+    \begin{enumerate}[label=\roman*.]
+      \item When $\beta_1$ is large, $\bm{m}$ relies more on the history of the past gradients rather than the new one. For example, if $\beta_1=0.9$, the contribution of the new gradient to weight update is only 10\% of that without momentum.
+      \item The model parameters with smaller gradients will get larger updates. When the variance of the gradients is high, Adam might help the parameters go in the direction of small gradients, which the vanilla update strategy would ignore due to rounding errors.
+    \end{enumerate}
+    \item
+    \begin{enumerate}[label=\roman*.]
+      \item $\gamma$ must equal $1/(1-p_\mathrm{drop})$ to make $\mathbb{E}_{p_\mathrm{drop}}[\bm{h}_\mathrm{drop}]_i=h_i$.
+      \item Dropout during evaluation time would make the network stochastic, which is usually not desirable.
+    \end{enumerate}
+  \end{enumerate}
+  \item \textbf{Neural Transition-Based Dependency Parsing}
+  \begin{enumerate}[label=(\alph*)]
+    \item See Table~\ref{tab:2a}.
+    \begin{table}[h]
+      \centering
+      \caption{Dependency parsing steps} \hfill
+      \label{tab:2a}
+      \begin{adjustbox}{width=\textwidth}
+        \begin{tabular}{l|l|l|l}
+          Stack & Buffer & New dependency & Transition \\
+          \hline
+          [ROOT] & [I, parsed, this, sentence, correctly] &  & Initial Configuration \\
+          {[ROOT, I]} & [parsed, this, sentence, correctly] &  & \texttt{SHIFT} \\
+          {[ROOT, I, parsed]} & [this, sentence, correctly] &  & \texttt{SHIFT} \\
+          {[ROOT, parsed]} & [this, sentence, correctly] & parsed $\rightarrow$ I & \texttt{LEFT-ARC} \\
+          {[ROOT, parsed, this]} & [sentence, correctly] & & \texttt{SHIFT} \\
+          {[ROOT, parsed, this, sentence]} & [correctly] & & \texttt{SHIFT} \\
+          {[ROOT, parsed, sentence]} & [correctly] & sentence $\rightarrow$ this & \texttt{LEFT-ARC} \\
+          {[ROOT, parsed]} & [correctly] & parsed $\rightarrow$ sentence & \texttt{RIGHT-ARC} \\
+          {[ROOT, parsed, correctly]} & [] & & \texttt{SHIFT} \\
+          {[ROOT, parsed]} & [] & parsed $\rightarrow$ correctly & \texttt{RIGHT-ARC} \\
+          {[ROOT]} & [] & ROOT $\rightarrow$ parsed & \texttt{RIGHT-ARC} \\
+        \end{tabular}
+      \end{adjustbox}
+    \end{table}
+    \item A sentence containing $n$ words will be parsed in $2n$ steps since every word is processed in 1 \texttt{SHIFT} operation and 1 \texttt{LEFT-ARC} or \texttt{RIGHT-ARC} operation.
+    \item See \texttt{parser\_transitions.py}.
+    \item See \texttt{parser\_transitions.py}.
+    \item See \texttt{parser\_model.py} and \texttt{run.py}.
+    \item See Table~\ref{tab:2f}.
+    \begin{table}[ht]
+      \centering
+      \caption{Dependency error corrections} \hfill
+      \label{tab:2f}
+      \begin{adjustbox}{width=\textwidth}
+        \begin{tabular}{l|l|l|l}
+          & Error type & Incorrect dependency & Correct dependency \\
+          \hline
+          i. & Verb Phrase Attachment Error & wedding $\rightarrow$ fearing & disembarked $\rightarrow$ fearing \\
+          ii. & Coordination Attachment Error & makes $\rightarrow$ rescue & rush $\rightarrow$ rescue \\
+          iii. & Prepositional Phrase Attachment Error & named $\rightarrow$ Midland & guy $\rightarrow$ Midland  \\
+          iv. & Modifier Attachment Error & elements $\rightarrow$ most & crucial $\rightarrow$ most
+        \end{tabular}
+      \end{adjustbox}
+    \end{table}
+  \end{enumerate}
 \end{enumerate}
 \end{document}
