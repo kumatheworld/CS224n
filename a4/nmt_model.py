@@ -81,7 +81,7 @@ class NMT(nn.Module):
         self.decoder = nn.LSTMCell(embed_size, hidden_size)
         self.h_projection = nn.Linear(2 * hidden_size, hidden_size, bias=False)
         self.c_projection = nn.Linear(2 * hidden_size, hidden_size, bias=False)
-        self.att_projection = nn.Linear(hidden_size, 2 * hidden_size, bias=False)
+        self.att_projection = nn.Linear(2 * hidden_size, hidden_size, bias=False)
         self.combined_output_projection = nn.Linear(hidden_size, 3 * hidden_size, bias=False)
         self.target_vocab_projection = nn.Linear(len(vocab.tgt), hidden_size, bias=False)
         self.dropout = nn.Dropout(dropout_rate)
@@ -182,9 +182,9 @@ class NMT(nn.Module):
         enc_hiddens_batch_second, _ = pad_packed_sequence(enc_hiddens_packed)
         enc_hiddens = enc_hiddens_batch_second.permute(1, 0, 2)
 
-        last_hidden_cat = torch.cat([last_hidden[0], last_hidden[1]], dim=1)
+        last_hidden_cat = torch.cat((last_hidden[0], last_hidden[1]), dim=1)
         init_decoder_hidden = self.h_projection(last_hidden_cat)
-        last_cell_cat = torch.cat([last_cell[0], last_cell[1]], dim=1)
+        last_cell_cat = torch.cat((last_cell[0], last_cell[1]), dim=1)
         init_decoder_cell = self.h_projection(last_cell_cat)
         dec_init_state = (init_decoder_hidden, init_decoder_cell)
 
@@ -257,10 +257,19 @@ class NMT(nn.Module):
         ###     Tensor Stacking:
         ###         https://pytorch.org/docs/stable/torch.html#torch.stack
 
+        enc_hiddens_proj = self.att_projection(enc_hiddens)
 
+        Y = self.model_embeddings.target(target_padded)
 
+        for Y_t in Y:
+            Ybar_t = torch.cat((Y_t, o_prev), dim=1)
+            dec_state, o_t, e_t = self.step(
+                Ybar_t, dec_state, enc_hiddens, enc_hiddens_proj, enc_masks
+            )
+            combined_outputs.append(o_t)
+            o_prev = o_t
 
-
+        combined_outputs = torch.stack(combined_outputs)
 
         ### END YOUR CODE
 
