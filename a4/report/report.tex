@@ -22,7 +22,7 @@
     \item The masked logits are made $-\infty$ and hence do not affect the softmax calculation of the other logits. Those masks are put on the hidden states from the padded words, which no attention should be paid to.
     \item (Missing)
     \item The model’s corpus BLEU Score was 35.83.
-    \item
+    \item One advantage of dot product attention compared to multiplicative attention is that it is less prone to overfitting since it does not have weight parameters. One disadvantage is its lower expressivity. One advantage of additive attention compared to multiplicative attention is that it can learn not to be affected by the hidden state very much by letting $W_1$ small. One disadvantage is that it is more prone to overfitting.
   \end{enumerate}
   \item \textbf{Analyzing NMT Systems}
   \begin{enumerate}[label=(\alph*)]
