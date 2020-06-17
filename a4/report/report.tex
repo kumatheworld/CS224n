@@ -19,7 +19,7 @@
     \item See \texttt{nmt\_model.py}.
     \item See \texttt{nmt\_model.py}.
     \item See \texttt{nmt\_model.py}.
-    \item
+    \item The masked logits are made $-\infty$ and hence do not affect the softmax calculation of the other logits. Those masks are put on the hidden states from the padded words, which no attention should be paid to.
     \item
     \item
     \item
