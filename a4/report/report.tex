@@ -32,13 +32,13 @@
       \begin{enumerate}[label=\arabic*.]
         \item "Aquí" is translated to "Here's" instead of "So". "favorite" is redundant.
         \item "Aquí" could be "Here", but the verb "is" is unnecessary anyway. A possible reason is that sentences with no verb were seldom fed during training time. The reason the NMT translated "otro" into "another favorite" instead of "another one" might be that NMT thought it could improve translation accuracy by understanding what such demonstrative words actually mean.
-        \item For the first error, feeding more data that have a similar characteristic might work. For the second error, penalizing redundancy might be a good idea.
+        \item For the first error, feeding more data without verbs might work. For the second error, penalizing redundancy might be a good idea.
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
-        \item
-        \item
-        \item
+        \item The latter half of the translation does not make sense.
+        \item Probably the model tried to directly translate the Spanish sentence word-by-word, which ended up producing the wrong sentence. Chances are the source sentence was inherently hard to translate due to some linguistic difference between Spanish and English.
+        \item To encourage the network to avoid unnatural direct translations, feeding more data where the reference translations are very different from possible direct translations might work.
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
