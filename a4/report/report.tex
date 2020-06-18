@@ -42,9 +42,9 @@
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
-        \item
-        \item
-        \item
+        \item "Bolingbroke" is interpreted as unknown.
+        \item This is simply because the model did not encounter the word "Bolingbroke" during training time.
+        \item One can either add such proper nouns to the vocabulary or let the network treat unseen words as they are (i.e. do not translate them). To implement the latter idea, imagine you have unknown words in the source sentence and you have got \textless\textit{unk}\textgreater tokens during translation. You can use the attention vector to guess which word in the source language each of those unknown words corresponds to.
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
