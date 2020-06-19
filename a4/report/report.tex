@@ -48,15 +48,15 @@
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
-        \item The idiom "dar vuelta a la manzana" is translated to "go back to the apple", unlike "go around the block" in the reference translation.
+        \item The idiom "dar vuelta a la manzana" is translated to "go back to the apple" unlike "go around the block" in the reference translation.
         \item The model directly translated the idiom to "go back to the apple", which is less meaningful in English.
         \item One possible way to get around this is pre-translate such idioms in the training set and do not let the machine learn the direct translation. More precisely, during translation we can replace the idiom by some random word which is not in the vocabulary, run the NMT and replace the possible unknown token in the target sentence which we expect has a high attention score on the random word representing the idiom.
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
-        \item
-        \item
-        \item
+        \item "la sala de profesores" is translated to "the women's" room" unlike "the teacher's lounge" in the reference translation.
+        \item It might be because the model encountered so many examples of women's bathrooms that it translated the sentence in that way. Another reason might be that the subject of the sentence is "she", which encouraged the machine to predict the inappropriate "women's room".
+        \item Feeding more data might possibly solve the problem.
       \end{enumerate}
       \item
       \begin{enumerate}[label=\arabic*.]
