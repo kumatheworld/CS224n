@@ -65,8 +65,28 @@
         \item One possible way is to pre-convert such quantities with units which are rarely used in English. My solution for (iv) with an easy calculation might work for that.
       \end{enumerate}
     \end{enumerate}
-    \item
-    \item
+    \item The following (i) and (ii) are presented as examples.
+    \begin{enumerate}[label=\roman*.]
+      \item
+      \begin{enumerate}[label=\arabic*.]
+        \item Este es un tmpano de Groenlandia, de tamao promedio.
+        \item This is an average-size Greenlandic iceberg.
+        \item This is a iceberg iceberg , average size .
+        \item There are 3 errors. Firstly, it puts "a" right before "iceberg", which has to be "an" instead. Secondly, it places 2 "iceberg"s in a row. Lastly, It totally ignores the word "Groenlandia".
+        \item I have no idea why those errors have ever been caused.
+        \item We can easily get around the first error by performing a post-processing after translation. One possible way to deal with the second error is to change the beam search algorithm to lower the score when the model tries to predict 2 identical words in a row. For the 3rd error, since proper nouns are often indispensable, it might be a good idea to encourage the machine to choose a word having a high attention score with a proper noun during beam search. In order to do that, we will need a method to judge whether a given word is a proper noun. One easy way is to look at the first letter and check if it is capital or not.
+      \end{enumerate}
+      \item
+      \begin{enumerate}[label=\arabic*.]
+        \item
+        \item
+        \item
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \end{enumerate}
+  \item
     \begin{enumerate}[label=\roman*.]
       \item
       \item
