@@ -1,6 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{enumitem}
+\usepackage{bm}
+\usepackage{amsmath}
 
 \title{
   \vspace{-2cm}
@@ -88,7 +90,22 @@
     \end{enumerate}
   \item
     \begin{enumerate}[label=\roman*.]
-      \item
+      \item For both $\bm{c}_1$ and $\bm{c}_2$, we have $BP=1$. For $\bm{c}_1$, we have
+      \begin{align*}
+        p_1&=(0+1+1+1+0)/5=0.6, \\
+        p_2&=(0+1+1+0)/4=0.5.
+      \end{align*}
+      For $\bm{c}_2$, we have
+      \begin{align*}
+        p_1&=(1+1+0+1+1)/5=0.8, \\
+        p_2&=(1+0+0+1)/4=0.5.
+      \end{align*}
+      Hence we get
+      \begin{align*}
+        BLUE_{\bm{c}_1}&=\exp(0.5*\log(0.6)+0.5*\log(0.5))=0.77, \\
+        BLUE_{\bm{c}_2}&=\exp(0.5*\log(0.8)+0.5*\log(0.5))=0.82.
+      \end{align*}
+      This result matches my intuition that $\bm{c}_2$ is the better translation.
       \item
       \item
       \item
