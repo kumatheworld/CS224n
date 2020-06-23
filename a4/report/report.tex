@@ -106,7 +106,16 @@
         BLUE_{\bm{c}_2}&=\exp(0.5*\log(0.8)+0.5*\log(0.5))=0.82.
       \end{align*}
       This result matches my intuition that $\bm{c}_2$ is the better translation.
-      \item
+      \item For both $\bm{c}_1$ and $\bm{c}_2$, we still have $BP=1$. For $\bm{c}_1$, both $p_1$ and $p_2$ remain unchanged. Hence $BLUE_{\bm{c}_1}=0.77$ as in (i). For $\bm{c}_2$, we have
+      \begin{align*}
+        p_1&=(1+1+0+0+0)/5=0.4, \\
+        p_2&=(1+0+0+0)/4=0.25,
+      \end{align*}
+      which gives us
+      \begin{align*}
+        BLUE_{\bm{c}_2}&=\exp(0.5*\log(0.4)+0.5*\log(0.25))=0.61.
+      \end{align*}
+      Now $\bm{c}_2$ is worse than $\bm{c}_1$, which is counter-intuitive.
       \item
       \item
     \end{enumerate}
