@@ -102,21 +102,22 @@
       \end{align*}
       Hence we get
       \begin{align*}
-        BLUE_{\bm{c}_1}&=\exp(0.5*\log(0.6)+0.5*\log(0.5))=0.77, \\
-        BLUE_{\bm{c}_2}&=\exp(0.5*\log(0.8)+0.5*\log(0.5))=0.82.
+        BLEU_{\bm{c}_1}&=\exp(0.5*\log(0.6)+0.5*\log(0.5))=0.77, \\
+        BLEU_{\bm{c}_2}&=\exp(0.5*\log(0.8)+0.5*\log(0.5))=0.82.
       \end{align*}
       This result matches my intuition that $\bm{c}_2$ is the better translation.
-      \item For both $\bm{c}_1$ and $\bm{c}_2$, we still have $BP=1$. For $\bm{c}_1$, both $p_1$ and $p_2$ remain unchanged. Hence $BLUE_{\bm{c}_1}=0.77$ as in (i). For $\bm{c}_2$, we have
+      \item For both $\bm{c}_1$ and $\bm{c}_2$, we still have $BP=1$. For $\bm{c}_1$, both $p_1$ and $p_2$ remain unchanged. Hence $BLEU_{\bm{c}_1}=0.77$ as in (i). For $\bm{c}_2$, we have
       \begin{align*}
         p_1&=(1+1+0+0+0)/5=0.4, \\
         p_2&=(1+0+0+0)/4=0.25,
       \end{align*}
       which gives us
       \begin{align*}
-        BLUE_{\bm{c}_2}&=\exp(0.5*\log(0.4)+0.5*\log(0.25))=0.61.
+        BLEU_{\bm{c}_2}&=\exp(0.5*\log(0.4)+0.5*\log(0.25))=0.61.
       \end{align*}
-      Now $\bm{c}_2$ is worse than $\bm{c}_1$, which is counter-intuitive.
-      \item
+      Now $\bm{c}_2$ is worse than $\bm{c}_1$, which is against my intuition.
+      \item It is often the case that good translations look very different from each other. That sometimes makes the $BLEU$ score
+      counter-intuitive like in the previous questions.
       \item
     \end{enumerate}
   \end{enumerate}
