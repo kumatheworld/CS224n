@@ -118,7 +118,16 @@
       Now $\bm{c}_2$ is worse than $\bm{c}_1$, which is against my intuition.
       \item It is often the case that good translations look very different from each other. That sometimes makes the $BLEU$ score
       counter-intuitive like in the previous questions.
-      \item
+      \item Advantages are:
+      \begin{itemize}
+        \item It is automatic and can be easily computed.
+        \item It is objective. We can compare the score across different machines.
+      \end{itemize}
+      Disadvantages are:
+      \begin{itemize}
+        \item It sometimes does not match our intuition especially when we have few reference translations.
+        \item It treats essentially the same words (like "make" and "makes" in the previous example) differently.
+      \end{itemize}
     \end{enumerate}
   \end{enumerate}
 \end{enumerate}
