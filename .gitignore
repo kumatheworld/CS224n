@@ -396,11 +396,22 @@ dmypy.json
 # Some more specific files
 *.npy
 *.pickle
+
 a2/utils/datasets/
+
 a3/data/
 a3/results/
-a4/en_es_data/
+
+a4/en_es_data/test.en
+a4/en_es_data/test.es
+a4/en_es_data/train.en
+a4/en_es_data/train.es
 a4/sanity_check_en_es_data/
 a4/vocab.json
 a4/model.bin
 a4/model.bin.optim
+
+a5/en_es_data/test.en
+a5/en_es_data/test.es
+a5/en_es_data/train.en
+a5/en_es_data/train.es
