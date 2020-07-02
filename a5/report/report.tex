@@ -3,6 +3,7 @@
 \usepackage{enumitem}
 \usepackage{bm}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 
 \title{
   \vspace{-2cm}
@@ -16,7 +17,7 @@
   \item \textbf{Character-based convolutional encoder for NMT}
   \begin{enumerate}[label=(\alph*)]
     \item Convolutional architectures can operate over variable length input too since convolutional layers slide fixed-sized windows over input unlike linear layers.
-    \item
+    \item The size of the padding should be 1 so that the padded vector will have size at least 5. Indeed, $m_\text{word}$ could be 1 if all words in a batch happen to be some characters of length 1 like 'a', in which case we have $\mathbf{x}'_\text{padded}\in\mathbb{Z}^3$.
     \item
     \item
     \item
