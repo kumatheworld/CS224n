@@ -6,6 +6,7 @@ CS224N 2019-20: Homework 5
 sanity_check.py: sanity checks for assignment 5
 Usage:
     sanity_check.py 1e
+    sanity_check.py 1f
     sanity_check.py 1h
     sanity_check.py 2a
     sanity_check.py 2b
@@ -27,7 +28,7 @@ from vocab import Vocab, VocabEntry
 
 from char_decoder import CharDecoder
 from nmt_model import NMT
-
+from highway import Highway
 
 import torch
 import torch.nn as nn
@@ -68,6 +69,42 @@ def question_1e_sanity_check():
     assert list(output.size()) == output_expected_size, "output shape is incorrect: it should be:\n {} but is:\n{}".format(output_expected_size, list(output.size()))
 
     print("Sanity Check Passed for Question 1e: To Input Tensor Char!")
+    print("-"*80)
+
+def question_1f_sanity_check():
+    """ Sanity check for highway.py
+        basic shape check and so on
+    """
+    print ("-"*80)
+    print("Running Sanity Check for Question 1f: Highway Network")
+    print ("-"*80)
+
+    x_conv_out = torch.empty(BATCH_SIZE, EMBED_SIZE)
+
+    highway = Highway(EMBED_SIZE)
+    x_highway = highway(x_conv_out)
+    x_highway_size = (*x_highway.size(),)
+    x_highway_expected_size = (BATCH_SIZE, EMBED_SIZE)
+    assert x_highway_size == x_highway_expected_size, \
+        f"Output shape is incorrect: it should be:\n {x_highway_expected_size} but is:\n{x_highway_size}"
+
+    highway = Highway(EMBED_SIZE)
+    highway.gate.bias = torch.nn.Parameter(torch.tensor(EMBED_SIZE * [-float('inf')]))
+    x_highway = highway(x_conv_out)
+    assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal input when x_gate=0"
+
+    highway = Highway(EMBED_SIZE)
+    highway.gate.bias = torch.nn.Parameter(torch.tensor(EMBED_SIZE * [float('inf')]))
+    x_highway = highway(x_conv_out)
+    assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal x_proj when x_gate=1"
+
+    highway = Highway(EMBED_SIZE)
+    highway.proj.weight = torch.nn.Parameter(torch.eye(EMBED_SIZE))
+    highway.proj.bias = torch.nn.Parameter(torch.zeros_like(highway.proj.bias))
+    x_highway = highway(x_conv_out)
+    assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal input when proj=id"
+
+    print("Sanity Check Passed for Question 1f: Highway Network!")
     print("-"*80)
 
 def question_1h_sanity_check(model):
@@ -169,6 +206,8 @@ def main():
 
     if args['1e']:
         question_1e_sanity_check()
+    elif args['1f']:
+        question_1f_sanity_check()
     elif args['1h']:
         question_1h_sanity_check(model)
     elif args['2a']:
