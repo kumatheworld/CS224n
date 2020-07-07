@@ -161,10 +161,16 @@ class VocabEntry(object):
         ###         https://pytorch.org/docs/stable/tensors.html#torch.Tensor.contiguous
         ###         https://pytorch.org/docs/stable/tensors.html#torch.Tensor.view
 
+        charindices = self.words2charindices(sents)
+        sents_padded = pad_sents_char(charindices, self.char_pad)
+        sents_padded_tensor = torch.tensor(sents_padded, device=device)
+        sents_var = sents_padded_tensor.permute(1, 0, 2).contiguous()
+        return sents_var
+
         ### END YOUR CODE
 
     def to_input_tensor(self, sents: List[List[str]], device: torch.device) -> torch.Tensor:
-        """ Convert list of sentences (words) into tensor with necessary padding for 
+        """ Convert list of sentences (words) into tensor with necessary padding for
         shorter sentences.
 
         @param sents (List[List[str]]): list of sentences (words)
