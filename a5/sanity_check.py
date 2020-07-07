@@ -82,6 +82,7 @@ def question_1f_sanity_check():
     x_conv_out = torch.empty(BATCH_SIZE, EMBED_SIZE)
 
     highway = Highway(EMBED_SIZE)
+    print(f'x_gate mean = {torch.mean(highway.gate.bias.data)}')
     x_highway = highway(x_conv_out)
     x_highway_size = (*x_highway.size(),)
     x_highway_expected_size = (BATCH_SIZE, EMBED_SIZE)
@@ -89,16 +90,19 @@ def question_1f_sanity_check():
         f"Output shape is incorrect: it should be:\n {x_highway_expected_size} but is:\n{x_highway_size}"
 
     highway = Highway(EMBED_SIZE)
+    print(f'x_gate mean = {torch.mean(highway.gate.bias.data)}')
     highway.gate.bias = torch.nn.Parameter(torch.tensor(EMBED_SIZE * [-float('inf')]))
     x_highway = highway(x_conv_out)
     assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal input when x_gate=0"
 
     highway = Highway(EMBED_SIZE)
+    print(f'x_gate mean = {torch.mean(highway.gate.bias.data)}')
     highway.gate.bias = torch.nn.Parameter(torch.tensor(EMBED_SIZE * [float('inf')]))
     x_highway = highway(x_conv_out)
     assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal x_proj when x_gate=1"
 
     highway = Highway(EMBED_SIZE)
+    print(f'x_gate mean = {torch.mean(highway.gate.bias.data)}')
     highway.proj.weight = torch.nn.Parameter(torch.eye(EMBED_SIZE))
     highway.proj.bias = torch.nn.Parameter(torch.zeros_like(highway.proj.bias))
     x_highway = highway(x_conv_out)
