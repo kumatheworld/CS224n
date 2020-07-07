@@ -18,10 +18,16 @@
   \begin{enumerate}[label=(\alph*)]
     \item Convolutional architectures can operate over variable length input too since convolutional layers slide fixed-sized windows over input unlike linear layers.
     \item The size of the padding should be 1 so that the padded vector will have size at least 5. Indeed, $m_\text{word}$ could be 1 if all words in a batch happen to be some characters of length 1 like 'a', in which case we have $\mathbf{x}'_\text{padded}\in\mathbb{Z}^3$.
-    \item The Highway layer makes it possible to combine local features and global features. In other words, it matches our intuition that we can sometimes understand the meaning of a word by just looking at a little chunk of consecutive characters at a time but it is sometimes better to consider the whole characters in it at once. In order to simplify the network semantics in the beginning of training, I would initialize $\bm{b}_\text{gate}$ to be negative.
+    \item The highway layer makes it possible to combine local features and global features. In other words, it matches our intuition that we can sometimes understand the meaning of a word by just looking at a little chunk of consecutive characters at a time but it is sometimes better to consider the whole characters in it at once. In order to simplify the network semantics in the beginning of training, I would initialize $\bm{b}_\text{gate}$ to be negative.
     \item Transformers are easier to parallelize and faster to train.
-    \item
-    \item
+    \item See \texttt{vocab.py}.
+    \item For the highway network implementation, see \texttt{highway.py}. I added a function \texttt{question\_1f\_sanity\_check()} in \texttt{sanity\_check.py} to test the following expected properties.
+    \begin{itemize}
+      \item The output size is correct for a given input.
+      \item $\bm{x}_\text{highway}=\bm{x}_\text{conv\_out}$ when $\bm{x}_\text{gate}=0$, which is checked by making $\bm{b}_\text{gate}=-\infty$.
+      \item $\bm{x}_\text{highway}=\bm{x}_\text{proj}$ when $\bm{x}_\text{gate}=1$, which is checked by making $\bm{b}_\text{gate}=\infty$.
+      \item $\bm{x}_\text{highway}=\bm{x}_\text{conv\_out}$ when the projection layer is the identity function.
+    \end{itemize}
     \item
     \item
     \item
