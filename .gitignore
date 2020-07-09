@@ -396,6 +396,7 @@ dmypy.json
 # Some more specific files
 *.npy
 *.pickle
+*.vscode
 
 a2/utils/datasets/
 
