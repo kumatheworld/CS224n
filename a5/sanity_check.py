@@ -7,6 +7,7 @@ sanity_check.py: sanity checks for assignment 5
 Usage:
     sanity_check.py 1e
     sanity_check.py 1f
+    sanity_check.py 1g
     sanity_check.py 1h
     sanity_check.py 2a
     sanity_check.py 2b
@@ -29,6 +30,7 @@ from vocab import Vocab, VocabEntry
 from char_decoder import CharDecoder
 from nmt_model import NMT
 from highway import Highway
+from cnn import CNN
 
 import torch
 import torch.nn as nn
@@ -109,6 +111,38 @@ def question_1f_sanity_check():
     assert torch.isclose(x_highway, x_conv_out).byte().any(), f"Output has to equal input when proj=id"
 
     print("Sanity Check Passed for Question 1f: Highway Network!")
+    print("-"*80)
+
+def question_1g_sanity_check():
+    """ Sanity check for highway.py
+        basic shape check and so on
+    """
+    print ("-"*80)
+    print("Running Sanity Check for Question 1g: Convolutional Network")
+    print ("-"*80)
+
+    char_embedding_size = 3
+    word_embed_size = 4
+    x_emb = torch.empty(BATCH_SIZE, char_embedding_size, word_embed_size)
+
+    cnn = CNN(char_embedding_size, word_embed_size)
+
+    assert cnn.conv.in_channels == char_embedding_size, \
+        f"Input channel size is incorrect: it should be:\n {char_embedding_size} but is:\n{cnn.conv.in_channels}"
+    assert cnn.conv.out_channels == word_embed_size, \
+        f"Output channel size is incorrect: it should be:\n {word_embed_size} but is:\n{cnn.conv.out_channels}"
+    assert cnn.conv.kernel_size == (5,), \
+        f"Kernel size is incorrect: it should be:\n {(5,)} but is:\n{cnn.conv.kernel_size}"
+    assert cnn.conv.padding == (1,), \
+        f"Padding size is incorrect: it should be:\n {(1,)} but is:\n{cnn.conv.padding}"
+
+    x_conv_out = cnn(x_emb)
+    x_conv_out_size = (*x_conv_out.size(),)
+    x_conv_out_expected_size = (BATCH_SIZE, word_embed_size)
+    assert x_conv_out_size == x_conv_out_expected_size, \
+        f"Output shape is incorrect: it should be:\n {x_conv_out_expected_size} but is:\n{x_conv_out_size}"
+
+    print("Sanity Check Passed for Question 1g: Convolutional Network!")
     print("-"*80)
 
 def question_1h_sanity_check(model):
@@ -212,6 +246,8 @@ def main():
         question_1e_sanity_check()
     elif args['1f']:
         question_1f_sanity_check()
+    elif args['1g']:
+        question_1g_sanity_check()
     elif args['1h']:
         question_1h_sanity_check(model)
     elif args['2a']:
