@@ -29,7 +29,11 @@
       \item $\bm{x}_\text{highway}=\bm{x}_\text{conv\_out}$ when the projection layer is the identity function.
     \end{itemize}
     In addition, I checked if $\bm{x}_\text{gate}$ is initialized to be negative by computing the mean 4 times. (see my answer for 1 (c) above).
-    \item
+    \item For the convolutional network implementation, see \texttt{cnn.py}. I added a function \texttt{question\_1g\_sanity\_check()} in \texttt{sanity\_check.py} to test the following expected properties.
+    \begin{itemize}
+      \item The sizes of input channels, output channels, kernels and padding of the convolutional layer are correct.
+      \item The output size is correct for a given input.
+    \end{itemize}
     \item
     \item
     \item
