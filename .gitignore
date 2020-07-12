@@ -417,3 +417,5 @@ a5/en_es_data/test.es
 a5/en_es_data/train.en
 a5/en_es_data/train.es
 a5/vocab.json
+a5/model.bin
+a5/model.bin.optim
