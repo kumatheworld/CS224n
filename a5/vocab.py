@@ -164,7 +164,7 @@ class VocabEntry(object):
         charindices = self.words2charindices(sents)
         sents_padded = pad_sents_char(charindices, self.char_pad)
         sents_padded_tensor = torch.tensor(sents_padded, device=device)
-        sents_var = sents_padded_tensor.permute(1, 0, 2).contiguous()
+        sents_var = sents_padded_tensor.transpose(0, 1).contiguous()
         return sents_var
 
         ### END YOUR CODE

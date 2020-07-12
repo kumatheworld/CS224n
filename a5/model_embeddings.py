@@ -41,14 +41,14 @@ class ModelEmbeddings(nn.Module):
         ### YOUR CODE HERE for part 1h
 
         num_embeddings = len(vocab.char2id)
-        dropout_probability = 0.3
+        dropout_rate = 0.3
         self.char_embedding_size = 50
         self.word_embed_size = word_embed_size
 
         self.char_embedding = nn.Embedding(num_embeddings, self.char_embedding_size)
         self.cnn = CNN(self.char_embedding_size, self.word_embed_size)
         self.highway = Highway(self.word_embed_size)
-        self.dropout = nn.Dropout(dropout_probability)
+        self.dropout = nn.Dropout(dropout_rate)
 
         ### END YOUR CODE
 
@@ -66,8 +66,9 @@ class ModelEmbeddings(nn.Module):
         sentence_length, batch_size, max_word_length = input.size()
 
         x_emb = self.char_embedding(input)
-        x_reshaped = x_emb.transpose(-1, -2).view(
-            sentence_length * batch_size, self.char_embedding_size, max_word_length)
+        x_reshaped = x_emb.view(
+            sentence_length * batch_size, max_word_length, self.char_embedding_size
+        ).transpose(1, 2)
         x_conv_out = self.cnn(x_reshaped)
         x_highway = self.highway(x_conv_out)
         x_word_emb = self.dropout(x_highway)
