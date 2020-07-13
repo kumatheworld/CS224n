@@ -36,6 +36,16 @@ class CharDecoder(nn.Module):
         ### YOUR CODE HERE for part 2a
         ### TODO - Implement the forward pass of the character decoder.
 
+        x = self.decoderCharEmb(input)
+        h = []
+        for x_t in x:
+            _, dec_hidden = self.charDecoder(x_t.unsqueeze(0), dec_hidden)
+            h_t = dec_hidden[0].squeeze(0)
+            h.append(h_t)
+        h = torch.stack(h)
+        s = self.char_output_projection(h)
+        return s, dec_hidden
+
         ### END YOUR CODE
 
     def train_forward(self, char_sequence, dec_hidden=None):
