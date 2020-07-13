@@ -64,6 +64,13 @@ class CharDecoder(nn.Module):
         ###       - Carefully read the documentation for nn.CrossEntropyLoss and our handout to see what this criterion have already included:
         ###             https://pytorch.org/docs/stable/nn.html#crossentropyloss
 
+        input = char_sequence[:-1]
+        s, _ = self(input, dec_hidden)
+        loss = nn.CrossEntropyLoss(reduction='sum')
+        target = char_sequence[1:]
+        output = loss(s.view(-1, s.size(-1)), target.flatten())
+        return output
+
         ### END YOUR CODE
 
     def decode_greedy(self, initialStates, device, max_length=21):
