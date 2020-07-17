@@ -44,11 +44,11 @@
     \item See \texttt{char\_decoder.py}.
     \item See \texttt{char\_decoder.py}.
     \item See \texttt{outputs/test\_outputs\_local\_q2.txt}. The BLEU score is 40.92.
-    \item See \texttt{outputs/test\_outputs.txt}. The BLEU score is 35.99. So would I get 0 point here? So sad...
+    \item See \texttt{outputs/test\_outputs.txt}. The BLEU score is 34.99. So would I get 0 point here? So sad...
   \end{enumerate}
   \item \textbf{Analyzing NMT Systems}
   \begin{enumerate}[label=(\alph*)]
-    \item
+    \item Traducir, traduzco and traduce are in \texttt{vocab.json}, while traduces, traduzca and traduzcas are not. This is bad for word-based NMT models from Spanish to English because they will not directly translate such words, which contain not only the essential meanings but also information about subjects or tense. Our character-based model will possibly overcome the problem since it is based on hidden states of the LSTM, which expectedly have some information about the right words to produce. Moreover, as in the above example of Spanish words some of which are in the vocabulary and others are not, words that mean similar things tend to be made of similar characters, where our model would conceivably work well.
     \item
     \begin{enumerate}[label=\roman*.]
       \item
