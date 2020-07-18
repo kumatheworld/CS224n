@@ -51,7 +51,14 @@
     \item Traducir, traduzco and traduce are in \texttt{vocab.json}, while traduces, traduzca and traduzcas are not. This is bad for word-based NMT models from Spanish to English because they will not directly translate such words, which contain not only the essential meanings but also information about subjects or tense. Our character-based model will possibly overcome the problem since it is based on hidden states of the LSTM, which expectedly have some information about the right words to produce. Moreover, as in the above example of Spanish words some of which are in the vocabulary and others are not, words that mean similar things tend to be made of similar characters, where our model would conceivably work well.
     \item
     \begin{enumerate}[label=\roman*.]
-      \item
+      \item Below are the (word $\rightarrow$ closest neighbor) pairs.
+        \begin{itemize}
+          \item financial $\rightarrow$ economic
+          \item neuron $\rightarrow$ nerve
+          \item Francisco $\rightarrow$ san
+          \item naturally $\rightarrow$ occurring
+          \item expectation $\rightarrow$ norms
+        \end{itemize}
       \item
       \item
     \end{enumerate}
