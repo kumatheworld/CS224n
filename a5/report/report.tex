@@ -69,7 +69,22 @@
         \end{itemize}
       \item The CharCNN models similarity in spelling whereas Word2Vec models semantic similarity. This is due to how those models are trained. With the CharCNN, similarly spelled words will have similar representations after convolutions, whereas semantically similar words will be embedded closely with Word2Vec since it tries to model words by nearby words they are placed with in sentences.
     \end{enumerate}
-    \item
+    \item Acceptable case (line 7,657):
+    \begin{enumerate}[label=\arabic*.]
+      \item Entonces, funcion", dije.
+      \item "So, then it worked," I said.
+      \item So, <unk> I said.
+      \item So, it worked ,"I said.
+      \item Since words with quotation symbols do not show up in the vocabulary, the CharCNN model tried to find words rather than producing \texttt{<UNK>}.
+    \end{enumerate}
+    Incorrect case (line 8):
+    \begin{enumerate}[label=\arabic*.]
+      \item Un amigo mo hizo eso -- Richard Bollingbroke.
+      \item A friend of mine did that -- Richard Bollingbroke.
+      \item A friend of mine did that -- Richard <unk>
+      \item A friend of mine did that -- Richard Bollywood.
+      \item It tried to translate the word Bollingbroke, which is not in the vocaburary, but ended up producing Bollingbroke, which is similar in spelling but means a totally different thing.
+    \end{enumerate}
   \end{enumerate}
 \end{enumerate}
 \end{document}
